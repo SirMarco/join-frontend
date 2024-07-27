@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  email: string = '';
+  username: string = '';
   password: string = '';
 
   constructor(private as: AuthService, private router: Router) {}
@@ -20,12 +20,11 @@ export class LoginComponent {
   async login() {
     try {
       let resp: any = await this.as.loginWithUsernameAndPassword(
-        this.email,
+        this.username,
         this.password
       );
-      console.log(resp);
       localStorage.setItem('token', resp['token']);
-      this.router.navigateByUrl('/todos');
+      this.router.navigateByUrl('/board');
     } catch (error) {
       alert('login fehlerhaft');
       console.log(error);

@@ -9,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  public loginWithUsernameAndPassword(email: string, password: string) {
+  public loginWithUsernameAndPassword(username: string, password: string) {
     const url = environment.baseUrl + '/login/';
     const body = {
-      email: email,
+      username: username,
       password: password,
     };
     return lastValueFrom(this.http.post(url, body));
