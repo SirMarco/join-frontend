@@ -1,0 +1,32 @@
+@import url("./../../styles.scss");
+nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: 232px;
+  padding: 96px 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a3647;
+  z-index: 2;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  margin-top: 16px;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  a:hover {
+    color: red;
+    cursor: pointer;
+  }
+}
