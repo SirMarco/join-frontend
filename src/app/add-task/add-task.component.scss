@@ -1,0 +1,66 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  form {
+    display: flex;
+    div {
+      width: 400px;
+    }
+  }
+}
+
+.input-field,
+.input-field-description {
+  position: relative;
+  margin-bottom: 16px;
+
+  input,
+  textarea {
+    width: 350px;
+    height: 60px;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 0 15px;
+    border: 2px solid #d1d1d1;
+    background: white;
+    color: black;
+    outline: none;
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 19px;
+    pointer-events: none;
+    transition: 0.3s;
+  }
+
+  input:focus,
+  textarea:focus {
+    border: 2px solid black;
+  }
+
+  input:focus ~ label,
+  input:valid ~ label,
+  textarea:focus ~ label,
+  textarea:valid ~ label {
+    top: 0;
+    left: 15px;
+    font-size: 16px;
+    padding: 0 2px;
+    background: white;
+  }
+}
+
+.input-field-description label {
+  top: 24px;
+}
+
+.input-field-description textarea {
+  height: 120px; // Beispielhöhe, kann angepasst werden
+}

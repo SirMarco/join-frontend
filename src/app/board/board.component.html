@@ -1,1 +1,46 @@
-<p>board works!</p>
+<h1>Tasks</h1>
+<div class="error">
+  {{error}}
+</div>
+<div class="tasks-container">
+  <div class="tasks-column">
+    <h2>Todo</h2>
+    @for (task of tasks; track $index) {
+    @if(task.progress === 'Todo') {
+    <li>
+      {{task.title}} ({{task.progress}})
+    </li>
+    }
+    }
+  </div>
+  <div class="tasks-column">
+    <h2>Await Feedback</h2>
+    @for (task of tasks; track $index) {
+    @if(task.progress === 'Await_Feedback') {
+    <li>
+      {{task.title}} ({{task.progress}})
+    </li>
+    }
+    }
+  </div>
+  <div class="tasks-column">
+    <h2>In Progress</h2>
+    @for (task of tasks; track $index) {
+    @if(task.progress === 'inProgress') {
+    <li>
+      {{task.title}} ({{task.progress}})
+    </li>
+    }
+    }
+  </div>
+  <div class="tasks-column">
+    <h2>Done</h2>
+    @for (task of tasks; track $index) {
+    @if(task.progress === 'Done') {
+    <li>
+      {{task.title}} ({{task.progress}})
+    </li>
+    }
+    }
+  </div>
+</div>

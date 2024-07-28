@@ -1,0 +1,12 @@
+.tasks-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tasks-column {
+  width: 45%;
+}
+
+.error {
+  color: red;
+}
