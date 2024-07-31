@@ -3,44 +3,42 @@
   {{error}}
 </div>
 <div class="tasks-container">
-  <div class="tasks-column">
+  <div class="tasks-column" (dragover)="onDragOver($event); highlight('Todo');" (drop)="onDrop($event,'Todo')"
+    (dragenter)="onDragEnter($event, 'Todo')" (dragleave)="onDragLeave($event, 'Todo')">
     <h2>Todo</h2>
-    @for (task of tasks; track $index) {
-    @if(task.progress === 'Todo') {
-    <li>
-      {{task.title}} ({{task.progress}})
-    </li>
-    }
-    }
+    <ul id="Todo">
+      <li class="singleTask" draggable="true" *ngFor="let task of todo" (dragstart)="onDragStart(task)">
+        {{task.title}} ({{task.progress}})
+      </li>
+    </ul>
   </div>
-  <div class="tasks-column">
+  <div class="tasks-column" (dragover)="onDragOver($event); highlight('Await_Feedback');"
+    (drop)="onDrop($event,'Await_Feedback')" (dragenter)="onDragEnter($event, 'Await_Feedback')"
+    (dragleave)="onDragLeave($event, 'Await_Feedback')">
     <h2>Await Feedback</h2>
-    @for (task of tasks; track $index) {
-    @if(task.progress === 'Await_Feedback') {
-    <li>
-      {{task.title}} ({{task.progress}})
-    </li>
-    }
-    }
+    <ul id="Await_Feedback">
+      <li class="singleTask" draggable="true" *ngFor="let task of awaitFeedback" (dragstart)="onDragStart(task)">
+        {{task.title}} ({{task.progress}})
+      </li>
+    </ul>
   </div>
-  <div class="tasks-column">
+  <div class="tasks-column" (dragover)="onDragOver($event); highlight('inProgress');"
+    (drop)="onDrop($event,'inProgress')" (dragenter)="onDragEnter($event, 'inProgress')"
+    (dragleave)="onDragLeave($event, 'inProgress')">
     <h2>In Progress</h2>
-    @for (task of tasks; track $index) {
-    @if(task.progress === 'inProgress') {
-    <li>
-      {{task.title}} ({{task.progress}})
-    </li>
-    }
-    }
+    <ul id="inProgress">
+      <li class="singleTask" draggable="true" *ngFor="let task of inProgress" (dragstart)="onDragStart(task)">
+        {{task.title}} ({{task.progress}})
+      </li>
+    </ul>
   </div>
-  <div class="tasks-column">
+  <div class="tasks-column" (dragover)="onDragOver($event); highlight('Done');" (drop)="onDrop($event,'Done')"
+    (dragenter)="onDragEnter($event, 'Done')" (dragleave)="onDragLeave($event, 'Done')">
     <h2>Done</h2>
-    @for (task of tasks; track $index) {
-    @if(task.progress === 'Done') {
-    <li>
-      {{task.title}} ({{task.progress}})
-    </li>
-    }
-    }
+    <ul id="Done">
+      <li class="singleTask" draggable="true" *ngFor="let task of done" (dragstart)="onDragStart(task)">
+        {{task.title}} ({{task.progress}})
+      </li>
+    </ul>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
+  private userId: number | null = null;
   constructor(private http: HttpClient, private router: Router) {}
 
   public loginWithUsernameAndPassword(username: string, password: string) {
@@ -16,9 +17,13 @@ export class AuthService {
       username: username,
       password: password,
     };
-    return lastValueFrom(this.http.post(url, body));
+    return lastValueFrom(this.http.post(url, body)).then((response: any) => {
+      this.userId = response.user_id;
+      localStorage.setItem('userId', response.user_id);
+      localStorage.setItem('token', response.token);
+      return response;
+    });
   }
-
   public registerNewUser(username: string, password: string) {
     const url = environment.baseUrl + '/register/';
     const body = { username: username, password: password };
@@ -27,6 +32,12 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    this.userId = null;
     this.router.navigate(['/login']);
+  }
+
+  public getUserId(): number | null {
+    return this.userId;
   }
 }

@@ -6,9 +6,23 @@
   form {
     display: flex;
     div {
-      width: 400px;
+      // width: 400px;
     }
   }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.formWrapper {
+  display: flex;
+}
+
+.formRight {
+  // display: flex;
+  gap: 20px;
 }
 
 .input-field,
@@ -63,4 +77,223 @@
 
 .input-field-description textarea {
   height: 120px; // Beispielhöhe, kann angepasst werden
+}
+
+.prio-selection-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+#urgentButton {
+  height: 56px;
+  width: 136px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 10px 16px 10px 16px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: solid 1px #d1d1d1;
+  gap: 8px;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  cursor: pointer;
+}
+
+#mediumButton {
+  height: 56px;
+  width: 136px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 10px 16px 10px 16px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 10px;
+  border: solid 1px #d1d1d1;
+  gap: 8px;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  cursor: pointer;
+}
+#lowButton {
+  height: 56px;
+  width: 136px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 10px 16px 10px 16px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 10px;
+  border: solid 1px #d1d1d1;
+  gap: 8px;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  cursor: pointer;
+}
+
+.active {
+  color: yellow;
+}
+
+.addTasksButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+#clearButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  width: 110px;
+  border-radius: 10px;
+  border: solid 1px #2a3647;
+  background-color: #f6f7f8;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: lighter;
+  color: #2a3647;
+}
+
+#clearButtonMobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  width: 110px;
+  border-radius: 10px;
+  border: solid 1px #2a3647;
+  background-color: #f6f7f8;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: lighter;
+  color: #2a3647;
+}
+
+#clearButtonMobile:hover {
+  cursor: pointer;
+  color: #29abe2;
+  border-color: #29abe2;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+#clearButton:hover {
+  cursor: pointer;
+  color: #29abe2;
+  border-color: #29abe2;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+#createTaskButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  width: 183px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2a3647;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: lighter;
+  color: white;
+}
+
+#createTaskButtonMobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  width: 183px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2a3647;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: lighter;
+  color: white;
+  gap: 8px;
+}
+
+#createTaskButton:hover {
+  cursor: pointer;
+  background-color: #29abe2;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+#createTaskButtonMobile:hover {
+  cursor: pointer;
+  background-color: #29abe2;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  .dropdown-toggle {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    display: block;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+
+    div {
+      padding: 5px 0;
+
+      &.selected {
+        background-color: lightgrey;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        input[type="checkbox"] {
+          margin-right: 10px;
+          display: none; /* Verstecke das Checkbox-Häkchen */
+        }
+      }
+    }
+  }
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input[type="text"] {
+    flex-grow: 1;
+    padding-right: 30px; // Platz für das Icon
+  }
+
+  .plus-button {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
