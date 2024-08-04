@@ -1,9 +1,9 @@
-<div class="wrapper border-green">
+<div class="wrapper">
   <h1>Add Task</h1>
   <form (ngSubmit)="createTask()">
     <div class="formContainer">
       <div class="formWrapper">
-        <div class="formLeft border-blue">
+        <div class="formLeft ">
           <div class="input-field">
             <input type="text" name="title" [(ngModel)]="title" required>
             <label>Title *</label>
@@ -12,68 +12,34 @@
             <textarea name="description" [(ngModel)]="description" required></textarea>
             <label>Description</label>
           </div>
-          <div class="dropdown">
-            <button class="dropdown-toggle" (click)="toggleDropdown()">
-              Select Contacts
-            </button>
-            <div *ngIf="dropdownOpen" class="dropdown-menu">
-              <div *ngFor="let contact of contacts" [class.selected]="isSelected(contact)">
-                <label>
-                  <input type="checkbox" [checked]="isSelected(contact)" (change)="onCheckboxChange($event, contact)">
-                  {{ contact.first_name }} {{ contact.last_name }} - {{ contact.email }}
-                </label>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="selectedContacts.length > 0" class="selected-contacts">
-            <ul>
-              <li *ngFor="let contact of selectedContacts">
-                {{ contact.first_name }} {{ contact.last_name }} - {{ contact.email }}
-              </li>
-            </ul>
-          </div>
-          <ng-template #noContacts>
-            <p>No contacts available.</p>
-          </ng-template>
         </div>
-        <div class="formRight border-blue">
+        <div class="formRight">
           <div class="input-field">
-            <input type="date" name="date" [(ngModel)]="selectedDate" required>
+            <input type="date" name="date" [(ngModel)]="selectedDate" class="form-control" id="checkindate"
+              [min]="currentDate" required>
             <label>Due date *</label>
           </div>
           <div class="prio-selection-container">
-            <div id="urgentButton" [class.active]="selectedPriority === 'urgent'" (click)="selectPriority('Urgent')">
+            <div class="urgentButton" [class.active]="selectedPriority === 'Urgent'" (click)="selectPriority('Urgent')">
               Urgent
               <img src="../assets/img/urgent-button-icon.svg">
             </div>
-            <div id="mediumButton" class="medium" [class.active]="selectedPriority === 'medium'"
-              (click)="selectPriority('Medium')">
+            <div class="mediumButton" [class.active]="selectedPriority === 'Medium'" (click)="selectPriority('Medium')">
               Medium
               <img src="../assets/img/medium-button-icon.svg">
             </div>
-            <div id="lowButton" [class.active]="selectedPriority === 'low'" (click)="selectPriority('Low')">
+            <div class="lowButton" [class.active]="selectedPriority === 'Low'" (click)="selectPriority('Low')">
               Low
               <img src="../assets/img/low-button-icon.svg">
             </div>
           </div>
 
-
           <div class="input-field">
-            <select name="category" [(ngModel)]="selectedCategory" id="">
-              <option value=1>User Task</option>
-              <option value=2>Technical Task</option>
+            <select name="category" [(ngModel)]="selectedCategory">
+              <option value="1">User Task</option>
+              <option value="2">Technical Task</option>
             </select>
           </div>
-          <div class="input-with-icon">
-            <input type="text" name="subtask" [(ngModel)]="subtask" placeholder="Enter text" required>
-            <button (click)="addText()" class="plus-button">
-              <img src="path-to-plus-icon.svg" alt="Add">
-            </button>
-          </div>
-          <ul>
-            <li *ngFor="let item of textArray">{{ item }}</li>
-          </ul>
-
         </div>
       </div>
       <div class="addTasksButtons">
@@ -87,4 +53,11 @@
       </div>
     </div>
   </form>
+  @if (showNoteDialog) {
+  <app-note-dialog (closeDialog)="closeDialog()"></app-note-dialog>
+  }
+  @if (!valid) {
+  <span [ngStyle]="{'color': 'red'}">Mindestens Titel und Datum ausfüllen</span>
+
+  }
 </div>

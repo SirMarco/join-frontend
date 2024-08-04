@@ -54,6 +54,9 @@ export class LoginComponent {
       localStorage.setItem('token', resp['token']);
       this.message = resp['message'];
       this.showPopup = true;
+      this.newUsername = '';
+      this.newPassword = '';
+      this.confirmPassword = '';
     } catch (error) {
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {

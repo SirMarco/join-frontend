@@ -1,11 +1,155 @@
-.tasks-container {
+.task-main {
+  display: flex;
+  align-items: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  flex-shrink: 0;
+  padding: 16px 16px 0 16px;
+  max-width: 1200px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.task-wrapper {
+  min-width: 252px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+}
+
+.task-main-headline {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  height: 32px;
 }
 
 .tasks-column {
-  width: 45%;
-  border: 2px solid rebeccapurple;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 24px;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  min-width: 252px;
+  max-width: 252px;
+}
+
+.task-category-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  background-color: lightgray;
+  border-radius: 8px;
+}
+
+.task-description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.task-title {
+  overflow-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  padding-bottom: 1px;
+}
+
+.task-description-text {
+  height: 38px;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+progress {
+  border: none;
+  border-radius: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 8px;
+  height: 8px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #4589ff;
+  border-radius: 8px;
+  height: 8px;
+}
+
+progress::-moz-progress-bar {
+  background-color: #4589ff;
+  border-radius: 8px;
+  height: 8px;
+}
+
+.progressSubtask {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressSubtask progress {
+  width: 50%;
+}
+
+.progressSubtask label {
+  font-size: 12px;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardInitial {
+  display: flex;
+}
+
+.cardInitialAssignedTo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 12px;
+  border: 2px solid var(--white);
+  margin-left: -8px;
+}
+
+.noTask {
+  color: black;
+  text-align: center;
+  background-color: lightgray;
+  border: 1px dashed black;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+  width: 100%;
 }
 
 .error {
@@ -43,4 +187,20 @@
   width: 200px;
   height: 200px;
   border: 1px solid green;
+}
+
+.font-20 {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+}
+.font-16 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+}
+.font-14 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
 }

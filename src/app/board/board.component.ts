@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { NgFor, AsyncPipe, CommonModule } from '@angular/common';
+import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 
 interface Task {
   id: number;
@@ -15,21 +16,29 @@ interface Task {
   assigned_to: number[];
 }
 
+interface Contact {
+  id: number;
+  name: string;
+}
+
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [NgFor, AsyncPipe],
+  imports: [NgFor, AsyncPipe, TaskDialogComponent, CommonModule],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
   tasks: Task[] = [];
   todo: Task[] = [];
+  contacts: Contact[] = [];
   awaitFeedback: Task[] = [];
   inProgress: Task[] = [];
   done: Task[] = [];
   error: string = '';
   currentTask: Task | null = null;
+  showDialog: boolean = false;
+  selectedPriority: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -37,15 +46,14 @@ export class BoardComponent {
     try {
       this.tasks = await this.loadTasks();
       this.updateTaskLists();
-      console.log(this.tasks);
     } catch (error) {
       this.error = 'fehler beim laden';
     }
   }
 
-  loadTasks() {
+  async loadTasks() {
     const url = environment.baseUrl + '/tasks/';
-    return lastValueFrom(this.http.get<Task[]>(url));
+    return await lastValueFrom(this.http.get<Task[]>(url));
   }
 
   updateTaskLists() {
@@ -60,13 +68,10 @@ export class BoardComponent {
   }
 
   onDragStart(task: Task) {
-    console.log('onDragStart');
     this.currentTask = task;
-    console.log(this.currentTask);
   }
 
   onDrop(event: DragEvent, progress: string) {
-    console.log('event', event);
     event.preventDefault();
     if (this.currentTask) {
       const record = this.tasks.find((m) => m.id === this.currentTask!.id);
@@ -81,22 +86,18 @@ export class BoardComponent {
   }
 
   onDragOver(event: DragEvent) {
-    console.log('onDragOver');
     event.preventDefault();
   }
 
   onDragEnter(event: DragEvent, id: string) {
-    console.log('onDragEnter', id);
     this.highlight(id);
   }
 
   onDragLeave(event: DragEvent, id: string) {
-    console.log('onDragLeave', id);
     this.removeHighlight(id);
   }
 
   updateTask(task: Task) {
-    console.log('Updating task:', task);
     const url = `${environment.baseUrl}/tasks/${task.id}/`;
     const updatedTask = { progress: task.progress };
     return lastValueFrom(this.http.patch(url, updatedTask));
@@ -104,11 +105,10 @@ export class BoardComponent {
 
   highlight(id: string) {
     let element: HTMLElement | null = document.getElementById(id);
-
     if (element) {
       if (!element.querySelector('.drag-area-drop-here')) {
         let dropCard = document.createElement('div');
-        dropCard.textContent = 'Drop';
+        dropCard.textContent = 'Drop here';
         dropCard.id = 'dropHere';
         dropCard.classList.add('drag-area-drop-here', 'font-21-light');
         element.appendChild(dropCard);
@@ -118,7 +118,6 @@ export class BoardComponent {
   }
 
   removeHighlight(id: string) {
-    console.log('removeHighlight', id);
     let highlightedElement = document.getElementById(id);
     if (highlightedElement) {
       highlightedElement.classList.remove('drag-area-highlight');
@@ -129,4 +128,31 @@ export class BoardComponent {
       elementToRemove.parentNode.removeChild(elementToRemove);
     }
   }
+
+  openTaskDialog(task: Task): void {
+    this.currentTask = task;
+    this.selectedPriority = this.currentTask.priority;
+    this.showDialog = true;
+  }
+
+  closeTaskDialog(): void {
+    this.showDialog = false;
+    this.currentTask = null;
+  }
+
+  async onTaskDeleted(taskId: number) {
+    this.tasks = await this.loadTasks();
+    this.updateTaskLists();
+  }
+
+  // für späteres Portfolio update mit contacts und subtask
+  /*
+
+  getUserContactNames(userContactIds: number[]): string[] {
+    return userContactIds.map((id) => {
+      const userContact = this.contacts.find((u) => u.id === id);
+      return userContact ? userContact.name : 'Unknown Contact';
+    });
+  }
+    */
 }

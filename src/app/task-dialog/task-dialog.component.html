@@ -1,0 +1,79 @@
+@if (editMode) {
+<div class="dialog-backdrop" (click)="onClose()"></div>
+<div class="dialog-container">
+  <div class="overlayTaskHeader">
+    <div class="task-category font-21-light white"></div>
+    <img (click)="onClose()" class="overlayTaskClose" src="./assets/img/close-btn-black.svg">
+  </div>
+  <div class="overlayTaskWrapperMain">
+    <div class="overlayTaskHeadline font-20">
+      <div>Titel:</div>
+      <input type="text" [(ngModel)]="task.title">
+    </div>
+    <div class="overlayTaskDescription font-20-light">
+      <div>Description:</div>
+      <input type="text" [(ngModel)]="task.description">
+    </div>
+    <div class="overlayTaskDate font-20-light">
+      <div>Due Date:</div>
+      <input type="date" name="date" class="form-control" id="checkindate" [(ngModel)]="task.due_date"
+        value="{{task.due_date}}" required>
+    </div>
+    <div class="overlayTaskPrio font-20-light">
+      <div>Priority:</div>
+      <div class="prio-selection-container">
+        <div class="urgentButton" [ngClass]="getPriorityClassEdit('Urgent')" (click)="selectPriority('Urgent')">
+          Urgent
+          <img src="../assets/img/urgent-button-icon.svg">
+        </div>
+        <div class="mediumButton" [ngClass]="getPriorityClassEdit('Medium')" (click)="selectPriority('Medium')">
+          Medium
+          <img src="../assets/img/medium-button-icon.svg">
+        </div>
+        <div class="lowButton" [ngClass]="getPriorityClassEdit('Low')" (click)="selectPriority('Low')">
+          Low
+          <img src="../assets/img/low-button-icon.svg">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlayTaskFooter">
+    <div class="overlayTaskFooterWrapper">
+      <a class="pointer" (click)="toggleEditMode()">CANCEL</a>
+      <a class="pointer" (click)="saveChanges()">SAVE</a>
+    </div>
+  </div>
+  <div class="dialog-footer">
+    <!-- <button (click)="onClose()">Close</button> -->
+  </div>
+</div>
+}@else {
+<div class="dialog-backdrop" (click)="onClose()"></div>
+<div class="dialog-container">
+  <div class="overlayTaskHeader">
+    <div class="task-category font-21-light white"></div>
+    <img (click)="onClose()" class="overlayTaskClose" src="./assets/img/close-btn-black.svg">
+  </div>
+  <div class="overlayTaskWrapperMain">
+    <div class="overlayTaskHeadline font-24">{{task.title}}</div>
+    <div class="overlayTaskDescription font-20-light">{{task.description}}</div>
+    <div class="overlayTaskDate font-20-light">
+      <div>Due Date:</div>
+      <div>{{task.due_date}}</div>
+    </div>
+    <div class="overlayTaskPrio font-20-light">
+      <div [ngClass]="getPriorityClass()">{{task.priority}}</div>
+      <!-- <div style="text-transform: capitalize;">{{task.priority}}<img id="prioArrowCard_${i}"></div> -->
+    </div>
+  </div>
+  <div class="overlayTaskFooter">
+    <div class="overlayTaskFooterWrapper">
+      <a class="pointer" (click)="toggleEditMode()">EDIT</a>
+      <a class="pointer" (click)="deleteTask()">DELETE</a>
+    </div>
+  </div>
+  <div class="dialog-footer">
+    <!-- <button (click)="onClose()">Close</button> -->
+  </div>
+</div>
+}

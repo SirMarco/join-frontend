@@ -2,43 +2,156 @@
 <div class="error">
   {{error}}
 </div>
-<div class="tasks-container">
-  <div class="tasks-column" (dragover)="onDragOver($event); highlight('Todo');" (drop)="onDrop($event,'Todo')"
-    (dragenter)="onDragEnter($event, 'Todo')" (dragleave)="onDragLeave($event, 'Todo')">
-    <h2>Todo</h2>
-    <ul id="Todo">
-      <li class="singleTask" draggable="true" *ngFor="let task of todo" (dragstart)="onDragStart(task)">
-        {{task.title}} ({{task.progress}})
-      </li>
-    </ul>
+<div class="task-main">
+  <div class="task-wrapper">
+    <div class="task-main-headline ">
+      <span class="font-20">To Do</span>
+    </div>
+    <div class="tasks-column" (dragover)="onDragOver($event); highlight('Todo');" (drop)="onDrop($event,'Todo')"
+      (dragenter)="onDragEnter($event, 'Todo')" (dragleave)="onDragLeave($event, 'Todo')">
+      @if (todo.length == 0) { <div class="noTask">No task in todo</div>
+      }
+      @for (task of todo; track $index) {
+      <div class="task" draggable="true" (dragstart)="onDragStart(task)" (click)="openTaskDialog(task)">
+        <div class="task-category-wrapper">
+          <span class="task-category white">
+            <ng-container *ngIf="task.category === 1">
+              User Task
+            </ng-container>
+            <ng-container *ngIf="task.category === 2">
+              Technical Task
+            </ng-container>
+          </span>
+        </div>
+        <div class="task-description">
+          <span class="task-title font-16">{{task.title}}</span>
+          <span class="task-description-text font-16-light grey">{{task.description}}</span>
+        </div>
+        <div class="task-footer">
+          <div id="cardInitial_${taskID}" class="cardInitial">
+          </div>
+          <img id="prioArrow_${taskID}">
+        </div>
+      </div>
+      }
+      <div id="Todo"></div>
+    </div>
   </div>
-  <div class="tasks-column" (dragover)="onDragOver($event); highlight('Await_Feedback');"
-    (drop)="onDrop($event,'Await_Feedback')" (dragenter)="onDragEnter($event, 'Await_Feedback')"
-    (dragleave)="onDragLeave($event, 'Await_Feedback')">
-    <h2>Await Feedback</h2>
-    <ul id="Await_Feedback">
-      <li class="singleTask" draggable="true" *ngFor="let task of awaitFeedback" (dragstart)="onDragStart(task)">
-        {{task.title}} ({{task.progress}})
-      </li>
-    </ul>
+  <div class="task-wrapper">
+    <div class="task-main-headline ">
+      <span class="font-20">Await_Feedback</span>
+    </div>
+    <div class="tasks-column" (dragover)="onDragOver($event); highlight('Await_Feedback');"
+      (drop)="onDrop($event,'Await_Feedback')" (dragenter)="onDragEnter($event, 'Await_Feedback')"
+      (dragleave)="onDragLeave($event, 'Await_Feedback')">
+      @if (awaitFeedback.length == 0) { <div class="noTask">No task in await feedback</div>
+      }
+      @for (task of awaitFeedback; track $index) {
+      <div class="task" draggable="true" (dragstart)="onDragStart(task)" (click)="openTaskDialog(task)">
+        <div class="task-category-wrapper">
+          <span class="task-category white">
+            <ng-container *ngIf="task.category === 1">
+              User Task
+            </ng-container>
+            <ng-container *ngIf="task.category === 2">
+              Technical Task
+            </ng-container>
+          </span>
+        </div>
+        <div class="task-description">
+          <span class="task-title font-16">Titel:{{task.title}}</span>
+          <span class="task-description-text font-16-light grey">description:{{task.description}}</span>
+        </div>
+        <div class="progressSubtask">
+          <progress value="" max=""></progress><label for="subtasks_${taskID}"></label>
+        </div>
+        <div class="task-footer">
+          <div id="cardInitial_${taskID}" class="cardInitial">
+          </div>
+          <img id="prioArrow_${taskID}">
+        </div>
+      </div>
+      }
+      <div id="Await_Feedback"></div>
+    </div>
   </div>
-  <div class="tasks-column" (dragover)="onDragOver($event); highlight('inProgress');"
-    (drop)="onDrop($event,'inProgress')" (dragenter)="onDragEnter($event, 'inProgress')"
-    (dragleave)="onDragLeave($event, 'inProgress')">
-    <h2>In Progress</h2>
-    <ul id="inProgress">
-      <li class="singleTask" draggable="true" *ngFor="let task of inProgress" (dragstart)="onDragStart(task)">
-        {{task.title}} ({{task.progress}})
-      </li>
-    </ul>
+  <div class="task-wrapper">
+    <div class="task-main-headline ">
+      <span class="font-20">In Progress</span>
+    </div>
+    <div class="tasks-column" (dragover)="onDragOver($event); highlight('inProgress');"
+      (drop)="onDrop($event,'inProgress')" (dragenter)="onDragEnter($event, 'inProgress')"
+      (dragleave)="onDragLeave($event, 'inProgress')">
+      @if (inProgress.length == 0) { <div class="noTask">No task in progress</div>
+      }
+      @for (task of inProgress; track $index) {
+      <div class="task" draggable="true" (dragstart)="onDragStart(task)" (click)="openTaskDialog(task)">
+        <div class="task-category-wrapper">
+          <span class="task-category white">
+            <ng-container *ngIf="task.category === 1">
+              User Task
+            </ng-container>
+            <ng-container *ngIf="task.category === 2">
+              Technical Task
+            </ng-container>
+          </span>
+        </div>
+        <div class="task-description">
+          <span class="task-title font-16">Titel:{{task.title}}</span>
+          <span class="task-description-text font-16-light grey">description:{{task.description}}</span>
+        </div>
+        <div class="progressSubtask">
+          <progress value="" max=""></progress><label for="subtasks_${taskID}"></label>
+        </div>
+        <div class="task-footer">
+          <div id="cardInitial_${taskID}" class="cardInitial">
+          </div>
+          <img id="prioArrow_${taskID}">
+        </div>
+      </div>
+      }
+      <div id="inProgress"></div>
+    </div>
   </div>
-  <div class="tasks-column" (dragover)="onDragOver($event); highlight('Done');" (drop)="onDrop($event,'Done')"
-    (dragenter)="onDragEnter($event, 'Done')" (dragleave)="onDragLeave($event, 'Done')">
-    <h2>Done</h2>
-    <ul id="Done">
-      <li class="singleTask" draggable="true" *ngFor="let task of done" (dragstart)="onDragStart(task)">
-        {{task.title}} ({{task.progress}})
-      </li>
-    </ul>
+  <div class="task-wrapper">
+    <div class="task-main-headline ">
+      <span class="font-20">Done</span>
+    </div>
+    <div class="tasks-column" (dragover)="onDragOver($event); highlight('Done');" (drop)="onDrop($event,'Done')"
+      (dragenter)="onDragEnter($event, 'Done')" (dragleave)="onDragLeave($event, 'Done')">
+      @if (done.length == 0) { <div class="noTask">No task in done</div>
+      }
+      @for (task of done; track $index) {
+      <div class="task" draggable="true" (dragstart)="onDragStart(task)" (click)="openTaskDialog(task)">
+        <div class="task-category-wrapper">
+          <span class="task-category white">
+            <ng-container *ngIf="task.category === 1">
+              User Task
+            </ng-container>
+            <ng-container *ngIf="task.category === 2">
+              Technical Task
+            </ng-container>
+          </span>
+        </div>
+        <div class="task-description">
+          <span class="task-title font-16">Titel:{{task.title}}</span>
+          <span class="task-description-text font-16-light grey">description:{{task.description}}</span>
+        </div>
+        <div class="progressSubtask">
+          <progress value="" max=""></progress><label for="subtasks_${taskID}"></label>
+        </div>
+        <div class="task-footer">
+          <div id="cardInitial_${taskID}" class="cardInitial">
+          </div>
+          <img id="prioArrow_${taskID}">
+        </div>
+      </div>
+      }
+      <div id="Done"></div>
+    </div>
   </div>
 </div>
+@if (showDialog) {
+<app-task-dialog [task]="currentTask" (closeDialog)="closeTaskDialog()"
+  (taskDeleted)="onTaskDeleted($event)">/app-task-dialog>></app-task-dialog>
+}
