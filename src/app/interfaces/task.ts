@@ -3,7 +3,6 @@ export interface TaskItem {
   description: string;
   due_date: string;
   priority: 'Low' | 'Medium' | 'Urgent';
-  category: number;
 }
 
 export interface SubTaskItem {

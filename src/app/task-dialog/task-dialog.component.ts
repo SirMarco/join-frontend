@@ -20,11 +20,13 @@ export class TaskDialogComponent implements OnInit {
   editMode = false;
   selectedPriority: string = '';
   tempTask: any = {};
+  categories: any[] = []; // Array to store categories
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.tempTask = { ...this.task }; // Create a copy of the task object
+    this.loadCategories(); // Load categories when component initializes
   }
 
   onClose() {
@@ -83,5 +85,17 @@ export class TaskDialogComponent implements OnInit {
     return {
       active: this.tempTask.priority === priority,
     };
+  }
+
+  loadCategories() {
+    const url = `${environment.baseUrl}/categories/`;
+    this.http.get(url).subscribe({
+      next: (response: any) => {
+        this.categories = response; // Assume response is an array of categories
+      },
+      error: (error) => {
+        console.error('Error loading categories:', error);
+      },
+    });
   }
 }

@@ -2,7 +2,12 @@
 <div class="dialog-backdrop" (click)="onClose()"></div>
 <div class="dialog-container">
   <div class="overlayTaskHeader">
-    <div class="task-category font-21-light white"></div>
+    <!-- <div class="task-category font-21-light white">
+      <label for="category">Category:</label>
+      <select id="category" [(ngModel)]="tempTask.category">
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div> -->
     <img (click)="onClose()" class="overlayTaskClose" src="./assets/img/close-btn-black.svg">
   </div>
   <div class="overlayTaskWrapperMain">
@@ -63,7 +68,6 @@
     </div>
     <div class="overlayTaskPrio font-20-light">
       <div [ngClass]="getPriorityClass()">{{task.priority}}</div>
-      <!-- <div style="text-transform: capitalize;">{{task.priority}}<img id="prioArrowCard_${i}"></div> -->
     </div>
   </div>
   <div class="overlayTaskFooter">
@@ -73,7 +77,6 @@
     </div>
   </div>
   <div class="dialog-footer">
-    <!-- <button (click)="onClose()">Close</button> -->
   </div>
 </div>
 }

@@ -12,8 +12,6 @@ interface Task {
   due_date: string;
   priority: string;
   progress: string;
-  // category: number;
-  // assigned_to: number[];
 }
 
 interface Contact {
