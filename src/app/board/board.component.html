@@ -13,7 +13,7 @@
       }
       @for (task of todo; track $index) {
       <div class="task" draggable="true" (dragstart)="onDragStart(task)" (click)="openTaskDialog(task)">
-        <div class="task-category-wrapper">
+        <!-- <div class="task-category-wrapper">
           <span class="task-category white">
             <ng-container *ngIf="task.category === 1">
               User Task
@@ -22,7 +22,7 @@
               Technical Task
             </ng-container>
           </span>
-        </div>
+        </div> -->
         <div class="task-description">
           <span class="task-title font-16">{{task.title}}</span>
           <span class="task-description-text font-16-light grey">{{task.description}}</span>

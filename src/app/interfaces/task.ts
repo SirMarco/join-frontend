@@ -1,12 +1,9 @@
 export interface TaskItem {
   title: string;
   description: string;
-  assigned_to: AssignedTo[];
   due_date: string;
   priority: 'Low' | 'Medium' | 'Urgent';
   category: number;
-  subtasks: SubTaskItem[];
-  users: number[];
 }
 
 export interface SubTaskItem {

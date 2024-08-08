@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../environments/environment';
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './task-dialog.component.html',
   styleUrls: ['./task-dialog.component.scss', './task-dialog.component28.scss'],
 })
-export class TaskDialogComponent {
+export class TaskDialogComponent implements OnInit {
   @Input() task: any;
   @Input() userNames: string[] = [];
   @Output() closeDialog = new EventEmitter<void>();
@@ -19,7 +19,13 @@ export class TaskDialogComponent {
 
   editMode = false;
   selectedPriority: string = '';
+  tempTask: any = {};
+
   constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.tempTask = { ...this.task }; // Create a copy of the task object
+  }
 
   onClose() {
     this.closeDialog.emit();
@@ -27,11 +33,16 @@ export class TaskDialogComponent {
 
   toggleEditMode() {
     this.editMode = !this.editMode;
+    if (this.editMode) {
+      this.tempTask = { ...this.task }; // Reset tempTask to task values
+    }
   }
+
   saveChanges() {
-    const url = `${environment.baseUrl}/tasks/${this.task.id}/`;
-    this.http.put(url, this.task).subscribe({
+    const url = `${environment.baseUrl}/tasks/${this.tempTask.id}/`;
+    this.http.put(url, this.tempTask).subscribe({
       next: (response) => {
+        this.task = { ...this.tempTask }; // Update the task object with tempTask values
         this.editMode = false;
       },
       error: (error) => {
@@ -39,6 +50,7 @@ export class TaskDialogComponent {
       },
     });
   }
+
   deleteTask() {
     if (confirm('Are you sure you want to delete this task?')) {
       const url = `${environment.baseUrl}/tasks/${this.task.id}/`;
@@ -56,7 +68,7 @@ export class TaskDialogComponent {
   }
 
   selectPriority(priority: string) {
-    this.task.priority = priority;
+    this.tempTask.priority = priority;
   }
 
   getPriorityClass() {
@@ -69,7 +81,7 @@ export class TaskDialogComponent {
 
   getPriorityClassEdit(priority: string) {
     return {
-      active: this.task.priority === priority,
+      active: this.tempTask.priority === priority,
     };
   }
 }

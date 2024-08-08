@@ -8,16 +8,16 @@
   <div class="overlayTaskWrapperMain">
     <div class="overlayTaskHeadline font-20">
       <div>Titel:</div>
-      <input type="text" [(ngModel)]="task.title">
+      <input type="text" [(ngModel)]="tempTask.title">
     </div>
     <div class="overlayTaskDescription font-20-light">
       <div>Description:</div>
-      <input type="text" [(ngModel)]="task.description">
+      <input type="text" [(ngModel)]="tempTask.description">
     </div>
     <div class="overlayTaskDate font-20-light">
       <div>Due Date:</div>
-      <input type="date" name="date" class="form-control" id="checkindate" [(ngModel)]="task.due_date"
-        value="{{task.due_date}}" required>
+      <input type="date" name="date" class="form-control" id="checkindate" [(ngModel)]="tempTask.due_date"
+        value="{{tempTask.due_date}}" required>
     </div>
     <div class="overlayTaskPrio font-20-light">
       <div>Priority:</div>

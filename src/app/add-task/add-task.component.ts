@@ -19,7 +19,7 @@ export class AddTaskComponent {
   selectedContacts: Contact[] = [];
   selectedPriority: string = 'Low';
   selectedDate: string = '';
-  selectedCategory: number = 1;
+  selectedCategory: string = 'User';
   title: string = '';
   description: string = '';
   showNoteDialog: boolean = false;
@@ -28,12 +28,9 @@ export class AddTaskComponent {
   task: TaskItem = {
     title: '',
     description: '',
-    assigned_to: [],
     due_date: '',
     priority: 'Low',
-    category: 1,
-    subtasks: [],
-    users: [],
+    category: 'User',
   };
 
   constructor(private http: HttpClient) {
@@ -53,10 +50,13 @@ export class AddTaskComponent {
     this.task.due_date = this.formatDate(this.selectedDate);
     this.task.priority = this.selectedPriority as 'Low' | 'Medium' | 'Urgent';
     this.task.category =
-      this.selectedCategory !== null ? this.selectedCategory : 1;
+      this.selectedCategory !== null ? this.selectedCategory : 'User';
+    console.log(this.task);
 
     this.http.post(url, this.task).subscribe({
       next: (response) => {
+        console.log(response);
+
         this.showNoteDialog = true;
         this.resetForm();
       },
